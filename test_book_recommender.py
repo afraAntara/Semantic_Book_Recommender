@@ -26,7 +26,17 @@ if "pytest" in sys.modules:
     st.subheader = MagicMock()
     st.text_input = MagicMock(return_value="Test Query")
 
-### Test 1 to check if Embeddings Exist ###
+### Test 1: Check if Dataset Loads Correctly ###
+def test_load_local_dataset():
+    """Test that the dataset is loaded correctly and contains required columns."""
+    required_columns = ["Title", "Authors", "Description", "Category", "Publisher", "combined_text"]
+    
+    assert isinstance(df, pd.DataFrame), "Dataset should be a Pandas DataFrame."
+    assert not df.empty, "Dataset should not be empty."
+    for col in required_columns:
+        assert col in df.columns, f"Missing required column: {col}"
+
+### Test 2 to check if Embeddings Exist ###
 def test_embeddings_exist():
     """
     Test to check if the book embeddings are correctly generated and loaded.
@@ -35,7 +45,25 @@ def test_embeddings_exist():
     assert book_embeddings.shape[0] > 0, "Embeddings tensor should not be empty."
 
 
-### Test 2 to Inference & Latency Times ###
+
+### Test 3: Check Embedding Computation ###
+def test_compute_embeddings():
+    """Test that embeddings are computed and saved correctly."""
+    test_embeddings = compute_embeddings(df)
+    
+    assert isinstance(test_embeddings, torch.Tensor), "Embeddings should be a PyTorch tensor."
+    assert test_embeddings.shape[0] == len(df), "Embeddings count should match dataset size."
+
+### ✅ Test 4: Check Query Embedding ###
+def test_compute_query_embedding():
+    """Test that query embeddings are correctly generated."""
+    user_query = "A fantasy adventure book"
+    query_embedding = compute_query_embedding(user_query)
+    
+    assert query_embedding is not None, "Query embedding should not be None."
+    assert isinstance(query_embedding, torch.Tensor), "Query embedding should be a PyTorch tensor."
+
+### Test 5 to Inference & Latency Times ###
 def test_inference_latency_time():
     """
     Test to check if inference (query embedding) and latency (recommendations) are computed within reasonable time.
@@ -65,7 +93,7 @@ def test_inference_latency_time():
     assert recommendation_latency < 1, "Recommendation latency should be under 1 seconds."
 
 
-### Test 3 to check if Streamlit Returns Correct Recommendations ###
+### Test 6 to check if Streamlit Returns Correct Recommendations ###
 def test_recommendation_output():
     """
     Test to check if the recommendation function returns a DataFrame with expected structure and values.
@@ -85,3 +113,12 @@ def test_recommendation_output():
     assert "Title" in top_books.columns, "Output DataFrame must have 'Title' column."
     assert "similarity" in top_books.columns, "Output DataFrame must have 'similarity' column."
     assert top_books["similarity"].iloc[0] >= top_books["similarity"].iloc[-1], "Books should be ranked by similarity score."
+
+
+
+
+
+
+
+
+
