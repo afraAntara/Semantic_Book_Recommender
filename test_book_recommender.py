@@ -54,7 +54,7 @@ def test_compute_embeddings():
     assert isinstance(test_embeddings, torch.Tensor), "Embeddings should be a PyTorch tensor."
     assert test_embeddings.shape[0] == len(df), "Embeddings count should match dataset size."
 
-### ✅ Test 4: Check Query Embedding ###
+### Test 4: Check Query Embedding ###
 def test_compute_query_embedding():
     """Test that query embeddings are correctly generated."""
     user_query = "A fantasy adventure book"
