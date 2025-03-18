@@ -66,7 +66,7 @@ def test_compute_query_embedding():
 ### Test 5 to Inference & Latency Times ###
 def test_inference_latency_time():
     """
-    Test to check if inference (query embedding) and latency (recommendations) are computed within reasonable time.
+    Test to check if inference and latency are computed within reasonable time.
     """
     user_query = "A mystery thriller book"
     
