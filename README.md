@@ -1,5 +1,7 @@
 # Semantic Book Recommender
 
+**Click on this link to use:** https://semanticbookrecommender-bj9hk62j29ck79hjhp6zrk.streamlit.app/
+
 ## Overview
 Semantic Book Recommender is an AI-powered web application that helps users discover books based on **semantic meaning** rather than just keyword matching. It leverages **Natural Language Processing (NLP)** and **pre-trained embeddings** to understand user queries and recommend books with high relevance.
 
